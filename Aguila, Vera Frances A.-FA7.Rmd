@@ -1,0 +1,101 @@
+---
+title: "Formative Assessment 7"
+author: "Vera Aguila"
+date: "2024-02-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+In Example 16.3 with 𝜆 = 4 per minute, use R to obtain:
+<br>(a) P(T ≤ 0.25) = P(time between submissions is at most 15 seconds);
+
+```{r q1.1}
+average_occurence = 4
+k <- pexp(0.25, average_occurence)
+k
+```
+
+<br><br>(b) P(T > 0.5) = P(time between submissions is greater than 30 seconds);
+```{r q1.2}
+average_occurence = 4
+k <- 1-pexp(0.5, average_occurence)
+k
+```
+
+<br><br>(c) P(0.25 < T < 1) = P(time between submissions is between 15 seconds
+and 1 minute).
+```{r q1.3}
+average_occurence = 4
+k <- pexp(1, average_occurence)-pexp(0.25, average_occurence)
+k
+```
+
+<br><br>
+## Question 3
+The average rate of job submissions in a computer center is 2 per minute. If
+it can be assumed that the number of submissions per minute has a Poisson
+distribution, calculate the probability that:
+<br>(a) more than two jobs will arrive in a minute;
+```{r q3.1}
+average_occurence <- 2
+x <- 0:2
+prob_morethan_2 <- 1 - sum(dpois(x, average_occurence))
+cat("Probability of more than two jobs arriving in a minute:", prob_morethan_2)
+```
+<br><br>(b) at least 30 seconds will elapse between any two jobs;
+<br>P(T ≥ 0.5)= P(time between submissions is at least 30 seconds)
+```{r q3.2}
+k <- 1 - pexp(30/60, average_occurence)
+k
+```
+<br><br>(c) less than 30 seconds will elapse between jobs;
+<br>P(T < 0.5)= P(time between submissions is less than 30 seconds)
+```{r q3.3}
+k <- pexp(30/60, average_occurence)
+k
+```
+<br><br>(d) a job will arrive in the next 30 seconds, if no jobs have arrived in the last
+30 seconds.
+<br>P(0.5 ≤ T ≤ 1)= P(time between submissions is in between of 30 and 60 seconds)
+
+```{r q3.4}
+k <- pexp(60/60, average_occurence) - pexp(30/60, average_occurence)
+k
+```
+<br><br>
+
+## Question 7
+A website receives an average of 15 visits per hour, which arrive following a
+Poisson distribution.
+<br>(a) Calculate the probability that at least 10 minutes will elapse without a
+visit.
+<br> 10 minutes is 0.16666667 of an hour 
+<br>P(0.16666667 ≤ T )= P(time between visits is at least 10 minutes)
+```{r q7.1}
+average_occurence = 15
+k <- pexp(0.16666667, average_occurence)
+k
+```
+<br><br>(b) What is the probability that in any hour, there will be less than eight visits?
+<br>P(X < 8 )= P(less than eight visits)
+
+```{r q7.2}
+k <- ppois(7, average_occurence)
+k
+```
+<br><br>(c) Suppose that 15 minutes have elapsed since the last visit, what is the probability that a visit will occur in the next 15 minutes.
+<br>P(0.25 < T ≤ 0.5)= P(time between visits is between 15 and 30 minutes)
+```{r q7.3}
+k <- pexp(0.5, average_occurence) - pexp(0.25, average_occurence)
+k
+```
+<br><br>(d) Calculate the top quartile, and explain what it means
+```{r q7.4}
+k <- qpois(0.75, average_occurence)
+k
+```
+
